@@ -1,7 +1,15 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { Component, useLayoutEffect } from "react";
-import { Text, StyleSheet, View, SafeAreaView, Image } from "react-native";
-import { HeroImage, HeroImg } from "../assets";
+import {
+  Text,
+  StyleSheet,
+  View,
+  SafeAreaView,
+  Image,
+  TouchableOpacity,
+} from "react-native";
+import { HeroImage } from "../assets";
+import * as Animatable from "react-native-animatable";
 // import { HeroImage } from "../assets";
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -32,7 +40,25 @@ const HomeScreen = () => {
       <View style={styles.HomeCircle1}></View>
       <View style={styles.HomeCircle2}></View>
       <View style={styles.homeImageContainer}>
-        <Image source={HeroImg} style={styles.HomeImg} />
+        <Animatable.Image
+          animation="fadeIn"
+          easing="ease-in-out"
+          source={HeroImage}
+          style={styles.HomeImg}
+        />
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Discover")}
+          style={styles.bottomButton}
+        >
+          <Animatable.View
+            animation={"pulse"}
+            iterationCount={"infinite"}
+            easing="ease-in-out"
+            style={styles.bottomButtonInner}
+          >
+            <Text style={styles.bottomButtonText}>Go</Text>
+          </Animatable.View>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -106,11 +132,11 @@ const styles = StyleSheet.create({
     width: 300,
     height: 300,
     borderRadius: 200,
-    // backgroundColor: "#00bcc9",
-    backgroundColor: "#ffdb58",
+    backgroundColor: "#00bcc9",
+    // backgroundColor: "#ffdb58",
 
     right: -120,
-    bottom: 120,
+    bottom: 220,
   },
   HomeCircle2: {
     position: "absolute",
@@ -119,20 +145,51 @@ const styles = StyleSheet.create({
     borderRadius: 200,
     backgroundColor: "#e99265",
     left: -100,
-    bottom: 280,
+    bottom: 60,
   },
   homeImageContainer: {
     flex: 1,
     justifyContent: "center",
-    // backgroundColor: "red",
     position: "relative",
     alignItems: "center",
   },
   HomeImg: {
-    position: "absolute",
-    bottom: -30,
+    // position: "absolute",
+    // bottom: -40,
     width: 400,
-    height: 400,
+    height: 500,
+    marginTop: 40,
     objectFit: "cover",
+  },
+  bottomButton: {
+    // padding: 20,
+    width: 80,
+    height: 80,
+    justifyContent: "center",
+    alignItems: "center",
+    // backgroundColor: "#00bcc9",
+    position: "absolute",
+    bottom: 120,
+    // borderLeftColor:
+    borderRadius: 50,
+    borderTopWidth: 4,
+    borderTopColor: "#00bcc9",
+    borderLeftWidth: 2,
+    borderLeftColor: "#00bcc9",
+    borderRightWidth: 2,
+    borderRightColor: "#00bcc9",
+  },
+  bottomButtonInner: {
+    width: 70,
+    height: 70,
+    backgroundColor: "#00bcc9",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 50,
+  },
+  bottomButtonText: {
+    color: "white",
+    fontSize: 28,
+    fontWeight: "semibold",
   },
 });
